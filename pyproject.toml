@@ -11,8 +11,8 @@ description = "`tap-tursoapi` is a Singer tap for TursoAPI, built with the Melta
 readme = "README.md"
 keywords = [
   "ELT",
-  "TursoAPI",
   "singer.io",
+  "TursoAPI",
 ]
 license.file = "LICENSE"
 maintainers = [{ name = "Edgar Ramírez-Mondragón",  email = "edgarrmondragon@hey.com" }]
