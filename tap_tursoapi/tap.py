@@ -17,6 +17,7 @@ STREAM_TYPES: list[type[RESTStream[t.Any]]] = [
     streams.Groups,
     streams.Databases,
     streams.Locations,
+    streams.AuditLogs,
 ]
 
 
