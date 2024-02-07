@@ -1,6 +1,6 @@
 # `tap-tursoapi`
 
-Singer tap for TursoAPI.
+Singer tap for the [Turso API](https://docs.turso.tech/api-reference/introduction).
 
 Built with the [Meltano Singer SDK](https://sdk.meltano.com).
 
