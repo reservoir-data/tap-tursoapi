@@ -54,7 +54,6 @@ jobs:
     - name: Run tests
       env:
         TAP_TURSOAPI_TOKEN: ${{ secrets.TAP_TURSOAPI_TOKEN }}
-        TAP_TURSOAPI_START_DATE: ${{ secrets.TAP_TURSOAPI_START_DATE }}
       run: |
         hatch run ${{ matrix.script }}
 
