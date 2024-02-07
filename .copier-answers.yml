@@ -1,0 +1,24 @@
+# Changes here will be overwritten by Copier
+_commit: v0.1.0
+_src_path: gh:edgarrmondragon/singer-tap-copier-template
+author_email: edgarrmondragon@hey.com
+author_fullname: Edgar Ramírez-Mondragón
+author_username: edgarrmondragon
+dependabot_update_time: '10:00'
+dependabot_update_timezone: Etc/UTC
+python_main_version: '3.12'
+repository_name: tap-tursoapi
+repository_namespace: edgarrmondragon
+repository_provider: github.com
+repository_visibility: private
+tap_auth_method: Bearer Token
+tap_id: tap-tursoapi
+tap_package_command_line_name: tap-tursoapi
+tap_package_distribution_name: tap-tursoapi
+tap_package_import_name: tap_tursoapi
+tap_source_description: Turso is a SQLite-compatible database built on libSQL, the
+    Open Contribution fork of SQLite
+tap_source_id: TursoAPI
+tap_source_name: TursoAPI
+tap_stream_type: REST
+vscode_files: true
