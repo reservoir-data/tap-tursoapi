@@ -94,13 +94,13 @@ Your project comes with a custom `meltano.yml` project file already created. Go 
 1. Check that the extractor is working properly
 
    ```bash
-   meltano invoke tap-tap-tursoapi --version
+   meltano invoke tap-tursoapi --version
    ```
 
 1. Execute an ELT pipeline
 
    ```bash
-   meltano run tap-tap-tursoapi target-jsonl
+   meltano run tap-tursoapi target-jsonl
    ```
 
 ### SDK Dev Guide
