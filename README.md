@@ -69,10 +69,10 @@ pipx install hatch
 Run integration tests:
 
 ```bash
-hatch run tests:integration
+hatch run test:integration
 ```
 
-You can also test the `tap-tap-tursoapi` CLI interface directly:
+You can also test the `tap-tursoapi` CLI interface directly:
 
 ```bash
 hatch run sync:console -- --about --format=json
