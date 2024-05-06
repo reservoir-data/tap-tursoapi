@@ -30,7 +30,7 @@ dynamic = [
   "version",
 ]
 dependencies = [
-  "singer-sdk~=0.36.0",
+  "singer-sdk~=0.37.0",
 ]
 optional-dependencies.dev = [
   "tap-tursoapi[testing,typing]",
@@ -38,7 +38,7 @@ optional-dependencies.dev = [
 optional-dependencies.testing = [
   "deptry>=0.12",
   "pytest>=8",
-  "singer-sdk[testing]~=0.36.0",
+  "singer-sdk[testing]~=0.37.0",
 ]
 optional-dependencies.typing = [
   "mypy",
