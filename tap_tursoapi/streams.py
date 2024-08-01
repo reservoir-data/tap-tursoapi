@@ -5,6 +5,7 @@ from __future__ import annotations
 import typing as t
 
 from singer_sdk import typing as th
+from singer_sdk.pagination import BasePageNumberPaginator
 
 from tap_tursoapi.client import TursoAPIStream
 
@@ -12,7 +13,7 @@ if t.TYPE_CHECKING:
     from requests import Response
 
 
-class Organizations(TursoAPIStream):
+class Organizations(TursoAPIStream[None]):
     """Organizations stream."""
 
     name = "organizations"
@@ -51,7 +52,7 @@ class Organizations(TursoAPIStream):
         }
 
 
-class Groups(TursoAPIStream):
+class Groups(TursoAPIStream[None]):
     """Groups stream."""
 
     parent_stream_type = Organizations
@@ -72,7 +73,7 @@ class Groups(TursoAPIStream):
     ).to_dict()
 
 
-class Databases(TursoAPIStream):
+class Databases(TursoAPIStream[None]):
     """Databases stream."""
 
     parent_stream_type = Organizations
@@ -98,7 +99,7 @@ class Databases(TursoAPIStream):
     ).to_dict()
 
 
-class Locations(TursoAPIStream):
+class Locations(TursoAPIStream[None]):
     """Locations stream."""
 
     name = "locations"
@@ -122,3 +123,41 @@ class Locations(TursoAPIStream):
         """
         for code, name in response.json().get("locations", {}).items():
             yield {"code": code, "name": name}
+
+
+class AuditLogs(TursoAPIStream[int]):
+    """AuditLogs stream."""
+
+    parent_stream_type = Organizations
+    _page_size = 500
+
+    name = "audit_logs"
+    path = "/v1/organizations/{organization_name}/audit-logs"
+    primary_keys = ()
+    replication_key = "created_at"
+    records_jsonpath = "$.audit_logs[*]"
+
+    schema = th.PropertiesList(
+        th.Property("author", th.StringType),
+        th.Property("code", th.StringType),
+        th.Property("created_at", th.DateTimeType),
+        th.Property("data", th.ObjectType()),
+        th.Property("message", th.StringType),
+        th.Property("origin", th.StringType),
+    ).to_dict()
+
+    def get_new_paginator(self) -> BasePageNumberPaginator:
+        """Get a new paginator."""
+        return BasePageNumberPaginator(1)
+
+    def get_url_params(
+        self,
+        context: dict[str, t.Any] | None,
+        next_page_token: int | None,
+    ) -> dict[str, t.Any]:
+        """Get URL query parameters."""
+        params = super().get_url_params(context, next_page_token)
+        params["page_size"] = self._page_size
+        params["page"] = next_page_token
+
+        return params

@@ -7,8 +7,10 @@ import typing as t
 from singer_sdk import RESTStream
 from singer_sdk.authenticators import BearerTokenAuthenticator
 
+T = t.TypeVar("T")
 
-class TursoAPIStream(RESTStream[t.Any]):
+
+class TursoAPIStream(RESTStream[T]):
     """TursoAPI stream class."""
 
     url_base = "https://api.turso.tech"
