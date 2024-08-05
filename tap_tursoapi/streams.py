@@ -10,6 +10,7 @@ from tap_tursoapi.client import TursoAPIStream
 
 if t.TYPE_CHECKING:
     from requests import Response
+    from singer_sdk.helpers.types import Context
 
 
 class Organizations(TursoAPIStream):
@@ -35,7 +36,7 @@ class Organizations(TursoAPIStream):
     def get_child_context(
         self,
         record: dict[str, t.Any],
-        context: dict[str, t.Any] | None,  # noqa: ARG002
+        context: Context | None,  # noqa: ARG002
     ) -> dict[str, t.Any] | None:
         """Get the child context for a record.
 

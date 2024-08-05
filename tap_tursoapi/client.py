@@ -7,6 +7,9 @@ import typing as t
 from singer_sdk import RESTStream
 from singer_sdk.authenticators import BearerTokenAuthenticator
 
+if t.TYPE_CHECKING:
+    from singer_sdk.helpers.types import Context
+
 
 class TursoAPIStream(RESTStream[t.Any]):
     """TursoAPI stream class."""
@@ -38,7 +41,7 @@ class TursoAPIStream(RESTStream[t.Any]):
 
     def get_url_params(
         self,
-        context: dict[str, t.Any] | None,  # noqa: ARG002
+        context: Context | None,  # noqa: ARG002
         next_page_token: t.Any | None,  # noqa: ARG002, ANN401
     ) -> dict[str, t.Any]:
         """Get URL query parameters.
