@@ -1,6 +1,9 @@
 version = 1
 requires-python = ">=3.9"
 
+[options]
+prerelease-mode = "allow"
+
 [[package]]
 name = "appdirs"
 version = "1.4.4"
@@ -904,6 +907,7 @@ wheels = [
 name = "tap-tursoapi"
 source = { editable = "." }
 dependencies = [
+    { name = "requests" },
     { name = "singer-sdk" },
 ]
 
@@ -926,7 +930,10 @@ typing = [
 ]
 
 [package.metadata]
-requires-dist = [{ name = "singer-sdk", specifier = "~=0.43.1" }]
+requires-dist = [
+    { name = "requests", specifier = "~=2.32.0" },
+    { name = "singer-sdk", specifier = "~=0.43.1" },
+]
 
 [package.metadata.requires-dev]
 dev = [
