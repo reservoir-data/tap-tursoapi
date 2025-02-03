@@ -7,12 +7,11 @@ environments:
 plugins:
   extractors:
   - name: tap-tursoapi
-    label: TursoAPI
     namespace: tursoapi
-    description: Turso is a SQLite-compatible database built on libSQL, the Open Contribution fork of SQLite
-    repository: https://github.com/edgarrmondragon/tap-tursoapi
+    label: TursoAPI
     docs: https://github.com/edgarrmondragon/tap-tursoapi#readme
     pip_url: -e .
+    description: Turso is a SQLite-compatible database built on libSQL, the Open Contribution fork of SQLite
     capabilities:
     - state
     - catalog
@@ -22,7 +21,11 @@ plugins:
       kind: password
       label: API Token
       description: API Token for Turso API
+      sensitive: true
+    repository: https://github.com/edgarrmondragon/tap-tursoapi
   loaders:
   - name: target-jsonl
     variant: andyh1203
     pip_url: target-jsonl
+venv:
+  backend: uv
