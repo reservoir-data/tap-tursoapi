@@ -22,7 +22,7 @@ plugins:
       label: API Token
       description: API Token for Turso API
       sensitive: true
-    repository: https://github.com/edgarrmondragon/tap-tursoapi
+    repo: https://github.com/edgarrmondragon/tap-tursoapi
   loaders:
   - name: target-jsonl
     variant: andyh1203
