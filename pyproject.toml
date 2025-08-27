@@ -36,9 +36,9 @@ dynamic = [
 dependencies = [
   "singer-sdk~=0.48.0",
 ]
-urls.Documentation = "https://github.com/edgarrmondragon/tap-tursoapi#readme"
-urls.Homepage = "https://github.com/edgarrmondragon/tap-tursoapi"
-urls.Repository = "https://github.com/edgarrmondragon/tap-tursoapi"
+urls.Documentation = "https://github.com/reservoir-data/tap-tursoapi#readme"
+urls.Homepage = "https://github.com/reservoir-data/tap-tursoapi"
+urls.Repository = "https://github.com/reservoir-data/tap-tursoapi"
 scripts."tap-tursoapi" = "tap_tursoapi.tap:TapTursoAPI.cli"
 
 [dependency-groups]
