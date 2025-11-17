@@ -52,6 +52,7 @@ testing = [
 ]
 typing = [
   "mypy",
+  "ty>=0.0.1a26",
   "types-requests",
 ]
 
@@ -126,7 +127,10 @@ commands = [ [ "deptry", "." ] ]
 
 [tool.tox.env.typing]
 dependency_groups = [ "testing", "typing" ]
-commands = [ [ "mypy", "--strict", { replace = "posargs", default = [ "tap_tursoapi", "tests" ], extend = true } ] ]
+commands = [
+  [ "mypy", "--strict", { replace = "posargs", default = [ "tap_tursoapi", "tests" ], extend = true } ],
+  [ "ty", "check", { replace = "posargs", default = [ "tap_tursoapi", "tests" ], extend = true } ],
+]
 
 [tool.mypy]
 enable_error_code = [

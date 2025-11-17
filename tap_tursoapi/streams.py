@@ -65,7 +65,7 @@ class Groups(TursoAPIStream):
 
     schema = th.PropertiesList(
         th.Property("archived", th.BooleanType),
-        th.Property("locations", th.ArrayType(th.StringType)),
+        th.Property("locations", th.ArrayType(th.StringType)),  # ty: ignore[invalid-argument-type]
         th.Property("name", th.StringType),
         th.Property("primary", th.StringType),
         th.Property("uuid", th.UUIDType),
@@ -91,7 +91,7 @@ class Databases(TursoAPIStream):
         th.Property("Name", th.StringType),
         th.Property("group", th.StringType),
         th.Property("primaryRegion", th.StringType),
-        th.Property("regions", th.ArrayType(th.StringType)),
+        th.Property("regions", th.ArrayType(th.StringType)),  # ty: ignore[invalid-argument-type]
         th.Property("type", th.StringType),
         th.Property("version", th.StringType),
         th.Property("sleeping", th.BooleanType),
