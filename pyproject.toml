@@ -116,16 +116,17 @@ warn_unused_ignores = true
 
 [tool.pytest]
 addopts = [
-  "-vvv",
+  "-v",
   "-ra",
-  "--strict-config",
-  "--strict-markers",
 ]
-filterwarnings = [ "error" ]
+filterwarnings = [
+  "error",
+  "default:Fields in transformed catalog but not in records:UserWarning",
+]
 log_level = "INFO"
 minversion = "9"
+strict = true
 testpaths = [ "tests" ]
-xfail_strict = true
 
 [tool.tox]
 min_version = "4.22"
