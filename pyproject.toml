@@ -55,7 +55,6 @@ testing = [
 typing = [
   "mypy>=2.1",
   "ty>=0.0.50",
-  "types-requests",
 ]
 
 [tool.hatch.version]
