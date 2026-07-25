@@ -3,6 +3,13 @@ name: Build and publish
 on:
   push:
 
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
     name: Build wheel and sdist
@@ -13,6 +20,8 @@ jobs:
       package_version: ${{ steps.baipp.outputs.package_version }}
     steps:
     - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      with:
+        persist-credentials: false
     - uses: hynek/build-and-inspect-python-package@d44ca7d91762de7a7d5436ddae667c6da6d1c3df # v2.18.0
       id: baipp
 
@@ -25,8 +34,8 @@ jobs:
       name: pypi
       url: https://pypi.org/project/tap-tursoapi/${{ needs.build.outputs.package_version }}
     permissions:
-      contents: write
-      id-token: write
+      contents: write # Upload artifacts to release
+      id-token: write # Required by pypa/gh-action-pypi-publish for trusted publishing
 
     steps:
     - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1

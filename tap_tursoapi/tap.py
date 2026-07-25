@@ -1,3 +1,5 @@
+# Copyright (c) 2026 Edgar-Ramírez Mondragón
+
 """TursoAPI tap class."""
 
 from __future__ import annotations

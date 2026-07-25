@@ -1,3 +1,5 @@
+# Copyright (c) 2026 Edgar-Ramírez Mondragón
+
 """REST client handling, including TursoAPIStream base class."""
 
 from __future__ import annotations
@@ -18,27 +20,22 @@ class TursoAPIStream(RESTStream[t.Any]):
     records_jsonpath = "$[*]"
 
     @property
+    @t.override
     def authenticator(self) -> BearerTokenAuthenticator:
-        """Get an authenticator object.
-
-        Returns:
-            The authenticator instance for this REST stream.
-        """
+        """An authenticator object."""
         return BearerTokenAuthenticator(token=self.config["token"])
 
     @property
+    @t.override
     def http_headers(self) -> dict[str, str]:
-        """Return the http headers needed.
-
-        Returns:
-            A dictionary of HTTP headers.
-        """
+        """The HTTP headers."""
         return {"User-Agent": f"{self.tap_name}/{self._tap.plugin_version}"}
 
+    @t.override
     def get_url_params(
         self,
-        context: Context | None,  # noqa: ARG002
-        next_page_token: t.Any | None,  # noqa: ARG002, ANN401
+        context: Context | None,
+        next_page_token: t.Any | None,
     ) -> dict[str, t.Any]:
         """Get URL query parameters.
 

@@ -1,3 +1,5 @@
+# Copyright (c) 2026 Edgar-Ramírez Mondragón
+
 """Stream type classes for tap-tursoapi."""
 
 from __future__ import annotations
@@ -10,7 +12,7 @@ from tap_tursoapi.client import TursoAPIStream
 
 if t.TYPE_CHECKING:
     from requests import Response
-    from singer_sdk.helpers.types import Context
+    from singer_sdk.helpers.types import Context, Record
 
 
 class Organizations(TursoAPIStream):
@@ -33,11 +35,12 @@ class Organizations(TursoAPIStream):
         th.Property("memory", th.IntegerType),
     ).to_dict()
 
+    @t.override
     def get_child_context(
         self,
-        record: dict[str, t.Any],
-        context: Context | None,  # noqa: ARG002
-    ) -> dict[str, t.Any] | None:
+        record: Record,
+        context: Context | None,
+    ) -> Record | None:
         """Get the child context for a record.
 
         Args:
@@ -112,6 +115,7 @@ class Locations(TursoAPIStream):
         th.Property("code", th.StringType),
     ).to_dict()
 
+    @t.override
     def parse_response(self, response: Response) -> t.Iterable[dict[str, t.Any]]:
         """Parse the response and yield records.
 

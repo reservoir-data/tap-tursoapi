@@ -43,22 +43,32 @@ env:
   TOX_UV_VERSION: 1.35.2
 
 jobs:
+  build-package:
+    name: Build & verify package
+    runs-on: ubuntu-latest
+    outputs:
+      supported-python-versions: ${{ steps.baipp.outputs.supported_python_classifiers_json_array }}
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: hynek/build-and-inspect-python-package@d44ca7d91762de7a7d5436ddae667c6da6d1c3df # v2.18.0
+        id: baipp
+
   test:
     name: Tests
     runs-on: ubuntu-24.04
+    needs: build-package
     strategy:
       fail-fast: false
       matrix:
-        python-version:
-        - "3.12"
-        - "3.13"
-        - "3.14"
-        include:
-        - { environment: "dependencies", python-version: "3.x" }
-        - { environment: "typing",       python-version: "3.x" }
+        python-version: ${{ fromJson(needs.build-package.outputs.supported-python-versions) }}
 
     steps:
     - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      with:
+        persist-credentials: false
     - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
       id: setup-python
       with:
@@ -71,17 +81,38 @@ jobs:
       env:
         UV_PYTHON: ${{ steps.setup-python.outputs.python-path }}
         TAP_TURSOAPI_TOKEN: ${{ secrets.TAP_TURSOAPI_TOKEN }}
+        MATRIX_PYTHON_VERSION: ${{ matrix.python-version }}
       run: >
         uvx
-        --with tox-uv==${{ env.TOX_UV_VERSION }}
-        --with tox==${{ env.TOX_VERSION }}
-        tox -e ${{ matrix.environment || matrix.python-version }}
+        --with tox-uv=="${TOX_UV_VERSION}"
+        --with tox=="${TOX_VERSION}"
+        tox -e "${MATRIX_PYTHON_VERSION}"
+
+  static:
+    name: Static Analysis
+    runs-on: ubuntu-24.04
+    steps:
+    - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      with:
+        persist-credentials: false
+    - name: Install the latest version of uv
+      uses: astral-sh/setup-uv@fac544c07dec837d0ccb6301d7b5580bf5edae39 # v8.2.0
+      with:
+        version: ${{ env.UV_VERSION }}
+    - name: Run static analysis
+      run: >
+        uvx
+        --with tox=="${TOX_VERSION}"
+        --with tox-uv=="${TOX_UV_VERSION}"
+        tox -m check
 
   pre-commit:
     name: pre-commit
     runs-on: ubuntu-24.04
     steps:
     - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      with:
+        persist-credentials: false
 
     - name: Install the latest version of uv
       uses: astral-sh/setup-uv@fac544c07dec837d0ccb6301d7b5580bf5edae39 # v8.2.0
@@ -90,5 +121,5 @@ jobs:
 
     - run: >
         uvx
-        --with prek==${{ env.PREK_VERSION }}
+        --with prek=="${PREK_VERSION}"
         prek run --show-diff-on-failure --all-files
