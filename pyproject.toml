@@ -75,13 +75,13 @@ select = [
   "ALL",
 ]
 ignore = [
-  "missing-trailing-comma",
   "line-contains-todo",
+  "missing-trailing-comma",
   "single-line-implicit-string-concatenation",
 ]
 per-file-ignores."tests/*" = [
-  "missing-return-type-undocumented-public-function",
   "assert",
+  "missing-return-type-undocumented-public-function",
   "private-member-access",
 ]
 unfixable = [
