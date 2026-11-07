@@ -14,13 +14,13 @@ keywords = [
   "singer.io",
   "TursoAPI",
 ]
-requires-python = ">=3.12"
+requires-python = ">=3.13"
 classifiers = [
   "Programming Language :: Python :: 3 :: Only",
-  "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: 3.13",
   "Programming Language :: Python :: 3.14",
   "Programming Language :: Python :: 3.15",
+  "Programming Language :: Python :: 3.16",
 ]
 dynamic = [
   "version",
@@ -62,12 +62,12 @@ typing = [
 source = "vcs"
 
 [tool.uv]
-required-version = ">=0.11"
+required-version = ">=0.13"
 prerelease = "allow"
 preview = true
 
 [tool.ruff]
-required-version = ">=0.16"
+required-version = ">=0.17"
 line-length = 88
 preview = true
 [tool.ruff.lint]
@@ -91,7 +91,7 @@ flake8-annotations.allow-star-arg-any = true
 pydocstyle.convention = "google"
 
 [tool.pyproject-fmt]
-max_supported_python = "3.15"
+max_supported_python = "3.16"
 table_format = "long"
 
 [tool.mypy]
@@ -124,13 +124,13 @@ testpaths = [ "tests" ]
 
 [tool.tox]
 requires = [
-  "tox>=4.55",
-  "tox-uv>=1.35",
+  "tox>=4.67",
+  "tox-uv>=1.37",
 ]
 env_list = [
   "dependencies",
   "typing",
-  { prefix = "3.", start = 12 },
+  { prefix = "3.", start = 13 },
 ]
 [tool.tox.env.dependencies]
 description = "check for unused, missing and transitive dependencies"
